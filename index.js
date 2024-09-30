@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const PORT = 80;
+const fs = require('fs');
 
 let ready = false;
 
@@ -35,7 +36,7 @@ client.on('qr', qr => {
 
 app.get('/', (req, res) => {
     const textParam = req.query.text; 
-    if (ready===true) {
+    if (ready) {
         if (textParam) {
             console.log(`Mensagem recebida: ${textParam}`); 
             client.sendMessage('120363336822323234@g.us', textParam)
@@ -45,10 +46,18 @@ app.get('/', (req, res) => {
         }
     } else {
         if (qrCodeImage) {
-            console.log(`QR Code gerado: ${qrCodeImage}`);
+            console.log(`QR Code gerado`);
             return res.send(`<img src="${qrCodeImage}" />`);
         } else {
-            return res.send('QR Code não foi gerado ainda. Bot não iniciado ainda.');
+            fs.access('./.wwebjs_cache', fs.constants.F_OK, (err) => {
+                if (err) {
+                    // console.error('A pasta não existe ou não pode ser acessada');
+                    return res.send('QR Code não foi gerado ainda. AGUARDE!');
+                } else {
+                    // console.log('A pasta existe e pode ser acessada');
+                    return res.send('Aguarde a execução do bot.');
+                }
+            });
         }
     }
 });
@@ -59,13 +68,18 @@ app.get('/', (req, res) => {
 //   client.sendMessage('120363336822323234@g.us', textParam)
 // });
 
-// client.on('message_create', message => {
-//     if (message.body === '?') {
-//         console.log(`message.id.remote: `, message.id.remote);
-//         console.log(`message.from: `, message.from);
-//         // console.log(`message.id(): ${message.id()}`);
-//     }
-// });
+setInterval(() => {
+    console.log('Mensagem a cada minuto!');
+  }, 60 * 1000); // 60 segundos * 1000 milissegundos = 1 minuto
+
+client.on('message_create', message => {
+    if (message.body === '!ping') {
+        console.log(`message.id.remote: `, message.id.remote);
+        console.log(`message.from: `, message.from);
+        console.log(`message.from: `, message);
+        // console.log(`message.id(): ${message.id()}`);
+    }
+});
 
 // client.on('message_create', message => {
 //     console.log(message.from, message.author,`: `, message.body)

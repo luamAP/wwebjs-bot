@@ -1,2 +1,3 @@
-2024/09/26-15:19:56.515 5cf0 Creating DB C:\Users\luan.pinto\Desktop\Códigos\wwebjs-bot\.wwebjs_auth\session\Default\Local Storage\leveldb since it was missing.
-2024/09/26-15:19:56.740 5cf0 Reusing MANIFEST C:\Users\luan.pinto\Desktop\Códigos\wwebjs-bot\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
+2024/09/30-10:54:23.941 3054 Reusing MANIFEST C:\Users\luan.pinto\Desktop\Códigos\wwebjs-bot\.wwebjs_auth\session\Default\Local Storage\leveldb/MANIFEST-000001
+2024/09/30-10:54:23.971 3054 Recovering log #4
+2024/09/30-10:54:23.971 3054 Reusing old log C:\Users\luan.pinto\Desktop\Códigos\wwebjs-bot\.wwebjs_auth\session\Default\Local Storage\leveldb/000004.log 
