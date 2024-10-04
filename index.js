@@ -68,15 +68,25 @@ app.get('/', (req, res) => {
 //   client.sendMessage('120363336822323234@g.us', textParam)
 // });
 
+
 setInterval(() => {
-    console.log('Mensagem a cada minuto!');
-  }, 60 * 1000); // 60 segundos * 1000 milissegundos = 1 minuto
+    const agora = new Date();
+    const hora = agora.getHours().toString().padStart(2, '0');
+    const minuto = agora.getMinutes().toString().padStart(2, '0');
+    const segundo = agora.getSeconds().toString().padStart(2, '0');
+
+    console.log(`Hora atual: ${hora}:${minuto}:${segundo}`);
+}, 60 * 1000); // 60 segundos * 1000 milissegundos = 1 minuto
 
 client.on('message_create', message => {
-    if (message.body === '!ping') {
+    if (message.body == '!info') {
         console.log(`message.id.remote: `, message.id.remote);
         console.log(`message.from: `, message.from);
         console.log(`message.from: `, message);
+
+        client.sendMessage(message.from, `message.id.remote: ${message.id.remote}`);
+        client.sendMessage(message.from, `message.from: ${message.from}`);
+        client.sendMessage(message.from, `message: ${message}`);
         // console.log(`message.id(): ${message.id()}`);
     }
 });
